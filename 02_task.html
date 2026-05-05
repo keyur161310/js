@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Operators & Comparisons (== vs ===)</h1>
+    <script>
+
+
+        function compareValues(a, b) {
+        return {
+        valueA: a,
+        valueB: b,
+
+        // Basic comparisons
+        equal_loose: a == b,
+        equal_strict: a === b,
+        not_equal_loose: a != b,
+        not_equal_strict: a !== b,
+
+        // Special cases
+        isNaN_A: Number.isNaN(a),
+        isNaN_B: Number.isNaN(b),
+        bothNaN: Number.isNaN(a) && Number.isNaN(b),
+
+        isNull_A: a === null,
+        isNull_B: b === null,
+
+        isUndefined_A: a === undefined,
+        isUndefined_B: b === undefined,
+
+        typeA: typeof a,
+        typeB: typeof b
+    };
+}
+    </script>
+</body>
+</html>

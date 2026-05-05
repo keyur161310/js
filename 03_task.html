@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prompt Confirm Alert Task</title>
+</head>
+<body>
+    <h1>]   Dialog Boxes (alert / prompt / confirm)</h1>
+    <h2>Click the button to enter your details</h2>
+    <button onclick="getUserDetails()">Start</button>
+
+    <script>
+        function getUserDetails() {
+            let name = prompt("Enter your name:");
+            let age = prompt("Enter your age:");
+
+            // Handle empty or cancelled input
+            if (!name || name.trim() === "" || !age || age.trim() === "") {
+                alert("⚠️ Please provide both name and age.");
+                return;
+            }
+
+            // Validate age
+            if (isNaN(age)) {
+                alert("⚠️ Age must be a valid number.");
+                return;
+            }
+
+            // Confirm
+            let isConfirmed = confirm("Are you sure?");
+
+            if (isConfirmed) {
+                alert(`✅ Hello ${name.trim()}! You are ${age} years old.`);
+            } else {
+                alert("❌ Operation cancelled.");
+            }
+        }
+    </script>
+
+</body>
+</html>
