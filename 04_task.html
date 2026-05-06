@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Message - Ternary + Nullish Coalescing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        h1 { text-align: center; color: #333; }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        input {
+            padding: 12px;
+            font-size: 18px;
+            width: 150px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover { background: #0056b3; }
+        #result {
+            margin-top: 20px;
+            font-size: 22px;
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 60px;
+        }
+        .code {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 25px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎟️ Age Access Checker/Decision Making (if/else, switch, ternary, ??)</h1>
+        <p style="text-align:center;">Using Ternary Operator + Nullish Coalescing (??)</p>
+
+        <div style="text-align:center; margin: 30px 0;">
+            <input type="number" id="ageInput" placeholder="Enter age" />
+            <button onclick="checkAccess()">Check Access</button>
+        </div>
+
+        <div id="result"></div>
+
+        <h2>Function Implementation:</h2>
+        <pre class="code"><code id="functionCode"></code></pre>
+    </div>
+
+    <script>
+        // ==================== Main Function ====================
+        function getAccessMessage(age) {
+            const validAge = (age ?? 0);   // Nullish Coalescing: handles null & undefined
+
+            return (
+                validAge < 0 ? "❌ Invalid Age: Age cannot be negative." :
+                isNaN(validAge) ? "❌ Invalid Age: Please enter a valid number." :
+                validAge < 13 ? "🚫 Access Denied: You must be at least 13 years old." :
+                validAge < 18 ? "⚠️ Limited Access: Parental guidance recommended (13-17 years)." :
+                validAge >= 65 ? "✅ Access Granted: Senior Citizen Welcome 👴" :
+                "✅ Access Granted: Welcome!"
+            );
+        }
+
+        // ==================== Interactive Function ====================
+        function checkAccess() {
+            const ageInput = document.getElementById('ageInput').value;
+            const age = ageInput === '' ? undefined : Number(ageInput);
+            
+            const message = getAccessMessage(age);
+            const resultDiv = document.getElementById('result');
+
+            resultDiv.innerHTML = message;
+            
+            // Color coding
+            if (message.includes("Access Granted")) {
+                resultDiv.style.background = "#d4edda";
+                resultDiv.style.color = "#155724";
+            } else if (message.includes("Limited Access")) {
+                resultDiv.style.background = "#fff3cd";
+                resultDiv.style.color = "#856404";
+            } else {
+                resultDiv.style.background = "#f8d7da";
+                resultDiv.style.color = "#721c24";
+            }
+        }
+
+        // Display the function code
+        document.getElementById('functionCode').textContent = 
+`function getAccessMessage(age) {
+    const validAge = (age ?? 0);   // Nullish Coalescing
+
+    return (
+        validAge < 0 ? "❌ Invalid Age: Age cannot be negative." :
+        isNaN(validAge) ? "❌ Invalid Age: Please enter a valid number." :
+        validAge < 13 ? "🚫 Access Denied: You must be at least 13 years old." :
+        validAge < 18 ? "⚠️ Limited Access: Parental guidance recommended." :
+        validAge >= 65 ? "✅ Access Granted: Senior Citizen Welcome 👴" :
+        "✅ Access Granted: Welcome!"
+    );
+}`;
+
+        // Allow pressing Enter key
+        document.getElementById('ageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkAccess();
+        });
+    </script>
+</body>
+</html>

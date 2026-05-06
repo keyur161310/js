@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Loops Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        h1 { text-align: center; color: #333; }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        input, button {
+            padding: 12px;
+            font-size: 18px;
+            margin: 5px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover { background: #0056b3; }
+        .output {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            min-height: 50px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .section { margin: 25px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 JavaScript Loops Demo/]   Loops (for, while, do-while, for...in)</h1>
+        
+        <div style="text-align:center;">
+            <input type="number" id="nInput" placeholder="Enter n" value="10" />
+            <button onclick="runAllLoops()">Run All Loops</button>
+        </div>
+
+        <!-- For Loop -->
+        <div class="section">
+            <h3>1. for Loop</h3>
+            <div class="output" id="forOutput"></div>
+        </div>
+
+        <!-- While Loop -->
+        <div class="section">
+            <h3>2. while Loop</h3>
+            <div class="output" id="whileOutput"></div>
+        </div>
+
+        <!-- Do While Loop -->
+        <div class="section">
+            <h3>3. do...while Loop</h3>
+            <div class="output" id="doWhileOutput"></div>
+        </div>
+
+        <!-- for...of -->
+        <div class="section">
+            <h3>4. for...of Loop (with Array)</h3>
+            <div class="output" id="forOfOutput"></div>
+        </div>
+
+        <!-- forEach -->
+        <div class="section">
+            <h3>5. forEach() Method</h3>
+            <div class="output" id="forEachOutput"></div>
+        </div>
+
+        <!-- for...in on Object -->
+        <div class="section">
+            <h3>6. for...in Loop (Object Keys)</h3>
+            <div class="output" id="forInOutput"></div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== Main Function ====================
+        function printNumbersWithLoops(n) {
+            n = Number(n);
+            if (isNaN(n) || n < 1) {
+                alert("Please enter a valid positive number!");
+                return;
+            }
+
+            // 1. for loop
+            let forResult = "for loop: ";
+            for (let i = 1; i <= n; i++) {
+                forResult += i + " ";
+            }
+            document.getElementById('forOutput').textContent = forResult;
+
+            // 2. while loop
+            let whileResult = "while loop: ";
+            let i = 1;
+            while (i <= n) {
+                whileResult += i + " ";
+                i++;
+            }
+            document.getElementById('whileOutput').textContent = whileResult;
+
+            // 3. do...while loop
+            let doWhileResult = "do...while: ";
+            let j = 1;
+            do {
+                doWhileResult += j + " ";
+                j++;
+            } while (j <= n);
+            document.getElementById('doWhileOutput').textContent = doWhileResult;
+
+            // 4. for...of with array
+            let numbers = Array.from({length: n}, (_, k) => k + 1);
+            let forOfResult = "for...of: ";
+            for (let num of numbers) {
+                forOfResult += num + " ";
+            }
+            document.getElementById('forOfOutput').textContent = forOfResult;
+
+            // 5. forEach
+            let forEachResult = "forEach: ";
+            numbers.forEach(num => {
+                forEachResult += num + " ";
+            });
+            document.getElementById('forEachOutput').textContent = forEachResult;
+
+            // 6. for...in on Object
+            const person = {
+                name: "Keyur",
+                city: "Bhavnagar",
+                age: 25,
+                profession: "Developer"
+            };
+
+            let forInResult = "for...in (Object Keys):\n";
+            for (let key in person) {
+                forInResult += `${key}: ${person[key]}\n`;
+            }
+            document.getElementById('forInOutput').textContent = forInResult;
+        }
+
+        function runAllLoops() {
+            const n = document.getElementById('nInput').value;
+            printNumbersWithLoops(n);
+        }
+
+        // Run with default value on load
+        window.onload = () => printNumbersWithLoops(10);
+    </script>
+</body>
+</html>
