@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert & Round Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        h1 { text-align: center; color: #333; }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        input {
+            padding: 12px;
+            font-size: 18px;
+            width: 250px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover { background: #0056b3; }
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f4f4f4;
+            border-radius: 10px;
+            font-size: 20px;
+            min-height: 70px;
+        }
+        .code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Convert & Round Function</h1>
+        <p style="text-align:center;">Parse string to number + Round to 2 decimal places using <code>toFixed()</code></p>
+
+        <div style="text-align:center; margin: 30px 0;">
+            <input type="text" id="strInput" placeholder="Enter a number as string" value="123.45678" />
+            <button onclick="convertAndShow()">Convert & Round</button>
+        </div>
+
+        <div id="result"></div>
+
+        <h2>Function Implementation:</h2>
+        <pre class="code"><code id="functionCode"></code></pre>
+    </div>
+
+    <script>
+        // ==================== Main Function ====================
+        function convertAndRound(str) {
+            if (str === null || str === undefined || str.trim() === "") {
+                return "❌ Error: Empty input";
+            }
+
+            // Parse string to float (handles both integers and decimals)
+            let num = parseFloat(str);
+
+            // Check for invalid number
+            if (isNaN(num)) {
+                return "❌ Error: Invalid number format";
+            }
+
+            // Round to 2 decimal places using toFixed()
+            return num.toFixed(2);
+        }
+
+        // ==================== Interactive Demo ====================
+        function convertAndShow() {
+            const input = document.getElementById('strInput').value;
+            const result = convertAndRound(input);
+            
+            const resultDiv = document.getElementById('result');
+            
+            if (typeof result === 'string' && result.includes("Error")) {
+                resultDiv.style.background = "#f8d7da";
+                resultDiv.style.color = "#721c24";
+            } else {
+                resultDiv.style.background = "#d4edda";
+                resultDiv.style.color = "#155724";
+            }
+            
+            resultDiv.innerHTML = `
+                <strong>Input:</strong> "${input}"<br><br>
+                <strong>Output:</strong> ${result} 
+                <small>(Type: ${typeof result})</small>
+            `;
+        }
+
+        // Display function code
+        document.getElementById('functionCode').textContent = 
+`function convertAndRound(str) {
+    if (!str || str.trim() === "") {
+        return "❌ Error: Empty input";
+    }
+
+    // Parse string to number (parseFloat handles both int & float)
+    let num = parseFloat(str);
+
+    if (isNaN(num)) {
+        return "❌ Error: Invalid number format";
+    }
+
+    // Round to 2 decimal places and return as string
+    return num.toFixed(2);
+}`; 
+
+        // Allow Enter key
+        document.getElementById('strInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') convertAndShow();
+        });
+
+        // Initial demo
+        window.onload = convertAndShow;
+    </script>
+</body>
+</html>
